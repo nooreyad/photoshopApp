@@ -1,14 +1,11 @@
-#include <stdio.h>
 #include <cstring>
 #include <iostream>
-#include <cstdlib>
 #include "bmplib.h"
-#include "unistd.h"
+#include "bmplib.cpp"
 
 using namespace std;
-unsigned char image[SIZE][SIZE];
+unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
 
-int IntegerChoice, choice;
 
 void loadImage();
 void BlackAndWhiteFilter();
@@ -17,17 +14,18 @@ void MergeFilter();
 void FlipImage();
 void DarkenAndLightenImage();
 void RotateImage();
-void DetectImageEdges();
-void EnlargeImage();
-void ShrinkImage();
-void MirrorHalfImage();
-void ShuffleImage();
-void BlurImage();
-void saveImage();
+//void DetectImageEdges();
+//void EnlargeImage();
+//void ShrinkImage();
+//void MirrorHalfImage();
+//void ShuffleImage();
+//void BlurImage();
+//void saveImage();
 
 int main() {
+    char choice;
+
     cout << "Hello and welcome to our photoshop program\n";
-    loadImage();
     cout << "Please choose one of the options below\n";
     cout << "1. Black & White Filter\n";
     cout << "2. Invert Filter\n";
@@ -35,138 +33,297 @@ int main() {
     cout << "4. Flip Image\n";
     cout << "5. Darken and Lighten Image\n";
     cout << "6. Rotate Image\n";
-    cout << "7. Detect Image Edges\n";
-    cout << "8. Enlarge Image\n";
-    cout << "9. Shrink Image\n";
-    cout << "a. Mirror 1/2 Image\n";
-    cout << "b. Shuffle Image\n";
-    cout << "c. Blur Image\n";
-    cout << "s. Save the image to a file\n";
-    cout << "0. Exit\n";
-    cout << "Your choice: ";
+//    cout << "7. Detect Image Edges\n";
+//    cout << "8. Enlarge Image\n";
+//    cout << "9. Shrink Image\n";
+//    cout << "a. Mirror 1/2 Image\n";
+//    cout << "b. Shuffle Image\n";
+//    cout << "c. Blur Image\n";
+//    cout << "s. Save the image to a file\n";
+//    cout << "0. Exit\n";
+//    cout << "Your choice: ";
     cin >> choice;
-    switch (choice) {
-        case 1:{
+    while (choice != 0) {
+        while (choice == '1') {
             BlackAndWhiteFilter();
+            break;
         }
-        case 2:{
+        while (choice == '2') {
             InvertFilter();
+            break;
         }
-        case 3:{
+        while (choice == '3') {
             MergeFilter();
+            break;
         }
-        case 4:{
+        while (choice == '4') {
             FlipImage();
+            break;
         }
-        case 5:{
+        while (choice == '5') {
             DarkenAndLightenImage();
+            break;
         }
-        case 6:{
+        while (choice == '6') {
             RotateImage();
+            break;
         }
-        case 7:{
+        while (choice == '7') {
             DetectImageEdges();
+            break;
         }
-        case 8:{
+        while (choice == '8') {
             EnlargeImage();
+            break;
         }
-        case 9:{
+        while (choice == '9') {
             ShrinkImage();
+            break;
         }
-        case 'a':{
+        while (choice == 'a') {
             MirrorHalfImage();
+            break;
         }
-        case 'b':{
+        while (choice == 'b') {
             ShuffleImage();
+            break;
         }
-        case 'c':{
+        while (choice == 'c') {
             BlurImage();
+            break;
         }
-        case 's':{
+        while (choice == 's') {
             saveImage();
+            break;
+        }
+    }
+    if (choice == 0){
+        cout << "Thank you for using our program\nGoodbye!";
+    }
+    else{
+        while (choice != 0){
+            cout << "Invalid input, Please re-enter the chosen filter: ";
+            cin >> choice;
+            break;
         }
     }
 }
 
 void loadImage () {
     char imageFileName[100];
-
-    // Get gray scale image file name
     cout << "Enter the source image file name: ";
     cin >> imageFileName;
-
-    // Add to it .bmp extension and load image
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
 
+void loadSecondImage () {
+    char imageFileName[100];
+    cout << "Enter the source of the second image file name: ";
+    cin >> imageFileName;
+    strcat (imageFileName, ".bmp");
+    readGSBMP(imageFileName, SecondImage);
+}
+
 void saveImage() {
     char imageFileName[100];
-
-    // Get gray scale image target file name
     cout << "Enter the target image file name: ";
     cin >> imageFileName;
-
-    // Add to it .bmp extension and load image
     strcat (imageFileName, ".bmp");
     writeGSBMP(imageFileName, image);
 }
 
 void BlackAndWhiteFilter(){
-
+    loadImage();
+    long avg = 0;
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            avg += image[i][j];
+        }
+    }
+    avg /= (SIZE * SIZE);
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            if (image[i][j] > avg)
+                image[i][j] = 255;
+            else
+                image[i][j] = 0;
+        }
+    }
+    saveImage();
 }
 
 void InvertFilter(){
+    loadImage();
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            image[i][j] = 255 - image[i][j];
+        }
+    }
+    saveImage();
 
 }
 
 void MergeFilter(){
     loadImage();
+    loadSecondImage();
+    for (int i = 0; i < SIZE; i++){
+        for (int j = i % 2; j < SIZE; j+=2){
+            image[i][j] = SecondImage[i][j];
+        }
+    }
+    saveImage();
 }
 
 void FlipImage(){
-    cout << "Please choose either\n1. for horizontal flipping\n2. for vertical flipping: ";
-    cin >> IntegerChoice;
+    loadImage();
+    char choice;
+    cout << "Please choose either\n1. for horizontal flipping\n2. for vertical flipping\n";
+    cout << "Choice: ";
+    cin >> choice;
+    switch (choice)
+    {
+        case '1':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    SecondImage[i][j] = image[i][j];
+                }
+            }
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = SecondImage[255-i][j];
+                }
+            }
+            break;
+
+        case '2':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    SecondImage[i][j] = image[i][j];
+                }
+            }
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = SecondImage[i][255-j];
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    saveImage();
 }
 
 void DarkenAndLightenImage(){
-    cout << "Please choose either\n1. for darkening\n2. for lightening: ";
-    cin >> IntegerChoice;
+    loadImage();
+    char choice;
+    cout << "Please choose either\n1. for darkening\n2. for lightening\n";
+    cout << "Choice: ";
+    cin >> choice;
+    switch (choice)
+    {
+        case '1':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    if(image[i][j] - 64 > 0){
+                        image[i][j] -= 64;
+                    }
+                    else{
+                        image[i][j] = 0;
+                    }
+                }
+            }
+            break;
+
+        case '2':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    if(image[i][j] + 64 < 255){
+                        image[i][j] += 64;
+                    }
+                    else{
+                        image[i][j] = 255;
+                    }
+                }
+            }
+            break;
+
+        default:
+            break;
+    }
+    saveImage();
 }
 
 void RotateImage(){
-    cout << "Please choose either\n1. Rotate 90\n2. Rotate 180\n3. Rotate 360\n";
+    loadImage();
+    char choice;
+    cout << "Please choose either\n1. Rotate 90\n2. Rotate 180\n3. Rotate 270\n";
     cout << "Choice: ";
-    cin >> IntegerChoice;
+    cin >> choice;
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            SecondImage[i][j] = image[i][j];
+        }
+    }
+    switch (choice)
+    {
+        case '1':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = SecondImage[255-j][i];
+                }
+            }
+            break;
+
+        case '2':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = SecondImage[255-i][255-j];
+                }
+            }
+            break;
+
+        case '3':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = SecondImage[j][255-i];
+                }
+            }
+            break;
+
+        default:
+            break;
+    }
+    saveImage();
 }
 
-void DetectImageEdges(){
-
-}
-
-void EnlargeImage(){
-    cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
-    cin >> IntegerChoice;
-}
-
-void ShrinkImage(){
-    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
-    cout << "Choice: ";
-    cin >> IntegerChoice;
-}
-
-void MirrorHalfImage(){
-    cout << "Mirror\n1. Left\n2. Right\n3. Upper\n4. Down\n";
-    cout << "Choice: ";
-    cin >> IntegerChoice;
-}
-
-void ShuffleImage(){
-    int order[4];
-    cout << "Please enter new order of the 4 quarters: ";
-    cin >> order[4];
-}
-
-void BlurImage(){
-
-}
+//void DetectImageEdges(){
+//
+//}
+//
+//void EnlargeImage(){
+//    cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
+//    // cin >> IntegerChoice;
+//}
+//
+//void ShrinkImage(){
+//    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
+//    cout << "Choice: ";
+//    // cin >> IntegerChoice;
+//}
+//
+//void MirrorHalfImage(){
+//    cout << "Mirror\n1. Left\n2. Right\n3. Upper\n4. Down\n";
+//    cout << "Choice: ";
+//    // cin >> IntegerChoice;
+//}
+//
+//void ShuffleImage(){
+//    int order[4];
+//    cout << "Please enter new order of the 4 quarters: ";
+//    cin >> order[4];
+//}
+//
+//void BlurImage(){
+//
+//}

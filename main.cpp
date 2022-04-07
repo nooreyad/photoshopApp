@@ -181,8 +181,7 @@ void FlipImage(){
     cout << "Please choose either\n1. for horizontal flipping\n2. for vertical flipping\n";
     cout << "Choice: ";
     cin >> choice;
-    switch (choice)
-    {
+    switch (choice){
         case '1':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){
@@ -220,8 +219,7 @@ void DarkenAndLightenImage(){
     cout << "Please choose either\n1. for darkening\n2. for lightening\n";
     cout << "Choice: ";
     cin >> choice;
-    switch (choice)
-    {
+    switch (choice){
         case '1':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){
@@ -234,7 +232,6 @@ void DarkenAndLightenImage(){
                 }
             }
             break;
-
         case '2':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){
@@ -247,7 +244,6 @@ void DarkenAndLightenImage(){
                 }
             }
             break;
-
         default:
             break;
     }
@@ -265,8 +261,7 @@ void RotateImage(){
             SecondImage[i][j] = image[i][j];
         }
     }
-    switch (choice)
-    {
+    switch (choice){
         case '1':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){
@@ -274,7 +269,6 @@ void RotateImage(){
                 }
             }
             break;
-
         case '2':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){
@@ -282,7 +276,6 @@ void RotateImage(){
                 }
             }
             break;
-
         case '3':
             for (int i = 0; i < SIZE; i++){
                 for (int j = 0; j < SIZE; j++){

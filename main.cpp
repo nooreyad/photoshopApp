@@ -33,7 +33,7 @@ int main() {
     cout << "4. Flip Image\n";
     cout << "5. Darken and Lighten Image\n";
     cout << "6. Rotate Image\n";
-//    cout << "7. Detect Image Edges\n";
+    cout << "7. Detect Image Edges\n";
 //    cout << "8. Enlarge Image\n";
 //    cout << "9. Shrink Image\n";
 //    cout << "a. Mirror 1/2 Image\n";
@@ -290,15 +290,43 @@ void RotateImage(){
     saveImage();
 }
 
-//void DetectImageEdges(){
-//
-//}
-//
+void DetectImageEdges(){
+    loadImage();
+    long avg = 0;
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            avg += image[i][j];
+        }
+    }
+    avg /= (SIZE * SIZE);
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            if (image[i][j] > avg)
+                image[i][j] = 255;
+            else
+                image[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            while (image[i][j+1] || image[i+1][j] || image[i+1][j+1] || image[i-1][j-1] || image[i-1][j] || image[i][j-1] || image[i+1][j-1]
+            || image[i-1][j+1] == 255) {
+                image[i][j] = 0;
+            }
+            while (image[i][j+1] || image[i+1][j] || image[i+1][j+1] || image[i-1][j-1] || image[i-1][j] || image[i][j-1] || image[i+1][j-1]
+                   || image[i-1][j+1] == 0) {
+                image[i][j] = 255;
+            }
+        }
+    }
+    saveImage();
+}
+
 //void EnlargeImage(){
 //    cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
 //    // cin >> IntegerChoice;
 //}
-//
+
 //void ShrinkImage(){
 //    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
 //    cout << "Choice: ";

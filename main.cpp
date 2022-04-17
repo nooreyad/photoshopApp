@@ -309,13 +309,14 @@ void DetectImageEdges(){
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            while (image[i][j+1] || image[i+1][j] || image[i+1][j+1] || image[i-1][j-1] || image[i-1][j] || image[i][j-1] || image[i+1][j-1]
-            || image[i-1][j+1] == 255) {
+            if (image[i][j+1] == 255 || image[i+1][j] == 255 || image[i+1][j+1] == 0 || image[i-1][j-1] == 255
+            || image[i-1][j] == 255 || image[i][j-1] == 255 || image[i+1][j - 1] == 255 || image[i-1][j+1] == 255) {
                 image[i][j] = 0;
-            }
-            while (image[i][j+1] || image[i+1][j] || image[i+1][j+1] || image[i-1][j-1] || image[i-1][j] || image[i][j-1] || image[i+1][j-1]
-                   || image[i-1][j+1] == 0) {
-                image[i][j] = 255;
+            } else {
+                if (image[i][j + 1] == 0 || image[i + 1][j] == 0 || image[i + 1][j + 1] == 0|| image[i - 1][j - 1] == 0
+                || image[i - 1][j] == 0 || image[i][j-1] == 0 || image[i+1][j-1] == 0 || image[i-1][j+1] == 0) {
+                    image[i][j] = 255;
+                }
             }
         }
     }

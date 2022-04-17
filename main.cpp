@@ -14,7 +14,7 @@ void MergeFilter();
 void FlipImage();
 void DarkenAndLightenImage();
 void RotateImage();
-//void DetectImageEdges();
+void DetectImageEdges();
 //void EnlargeImage();
 //void ShrinkImage();
 //void MirrorHalfImage();

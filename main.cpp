@@ -8,6 +8,8 @@ unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
 
 
 void loadImage();
+void loadSecondImage();
+void saveImage();
 void BlackAndWhiteFilter();
 void InvertFilter();
 void MergeFilter();
@@ -17,7 +19,7 @@ void RotateImage();
 void DetectImageEdges();
 //void EnlargeImage();
 //void ShrinkImage();
-//void MirrorHalfImage();
+void MirrorHalfImage();
 //void ShuffleImage();
 //void BlurImage();
 //void saveImage();
@@ -36,7 +38,7 @@ int main() {
     cout << "7. Detect Image Edges\n";
 //    cout << "8. Enlarge Image\n";
 //    cout << "9. Shrink Image\n";
-//    cout << "a. Mirror 1/2 Image\n";
+    cout << "a. Mirror 1/2 Image\n";
 //    cout << "b. Shuffle Image\n";
 //    cout << "c. Blur Image\n";
 //    cout << "s. Save the image to a file\n";
@@ -334,12 +336,51 @@ void DetectImageEdges(){
 //    // cin >> IntegerChoice;
 //}
 //
-//void MirrorHalfImage(){
-//    cout << "Mirror\n1. Left\n2. Right\n3. Upper\n4. Down\n";
-//    cout << "Choice: ";
-//    // cin >> IntegerChoice;
-//}
-//
+void MirrorHalfImage(){
+    loadImage();
+    char choice;
+    cout << "Mirror\n1. Left half\n2. Right half\n3. Upper half \n4. Down half\n";
+    cout << "Choice: ";
+    cin >> choice;
+    switch(choice) {
+        case '1':
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    image[i][j] = image[i][SIZE-1-j];
+                    image[i][SIZE-1-j] = image[i][j];
+                }
+            }
+            break;
+        case '2':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][SIZE-1-j] = image[i][j];
+                    image[i][j] = image[i][SIZE-1-j];
+                }
+            }
+            break;
+        case '3':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[i][j] = image[SIZE-1-i][j];
+                    image[SIZE-1-i][j] = image[i][j];
+                }
+            }
+            break;
+        case '4':
+            for (int i = 0; i < SIZE; i++){
+                for (int j = 0; j < SIZE; j++){
+                    image[SIZE-1-i][j] = image[i][j];
+                    image[i][j] = image[SIZE-1-i][j];
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    saveImage();
+}
+
 //void ShuffleImage(){
 //    int order[4];
 //    cout << "Please enter new order of the 4 quarters: ";

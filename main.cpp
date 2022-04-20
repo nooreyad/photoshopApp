@@ -5,7 +5,7 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
-
+int IntegerChoice;
 
 void loadImage();
 void BlackAndWhiteFilter();
@@ -323,10 +323,87 @@ void DetectImageEdges(){
     saveImage();
 }
 
-//void EnlargeImage(){
-//    cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
-//    // cin >> IntegerChoice;
-//}
+void EnlargeImage(){
+    int quarterImage[64][64];
+    int m =0;
+    loadImage();
+cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
+cin>>IntegerChoice;
+switch (IntegerChoice)
+    case '1': {
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = 0; j < SIZE / 2; j++) {
+                quarterImage[i][j] = image[i][j];
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if ((j + 1) % 4 == 0) {
+                    for (int k = (j - 3); k <= j; k++) {
+                        image[i][k] = quarterImage[i][m];
+                    }
+                    m+=1;
+                }
+
+            }
+
+        }
+        break;
+        case '2':
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = SIZE / 2; j < SIZE; j++) {
+                    quarterImage[i][j] = image[i][j];
+                }
+            }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if ((j + 1) % 4 == 0) {
+                    for (int k = (j - 3); k <= j; k++) {
+                        image[i][k] = quarterImage[i][m];
+                    }
+                    m += 1;
+                }
+
+            }
+        }
+        break;
+        case '3':
+            for (int i = SIZE / 2; i < SIZE; i++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    quarterImage[i][j] = image[i][j];
+                }
+            }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if ((j + 1) % 4 == 0) {
+                    for (int k = (j - 3); k <= j; k++) {
+                        image[i][k] = quarterImage[i][m];
+                    }
+                    m += 1;
+                }
+            }
+        }
+        break;
+        case '4':
+            for (int i = SIZE / 2; i < SIZE; i++) {
+                for (int j = SIZE / 2; j < SIZE; j++) {
+                    quarterImage[i][j] = image[i][j];
+                }
+            }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if ((j + 1) % 4 == 0) {
+                    for (int k = (j - 3); k <= j; k++) {
+                        image[i][k] = quarterImage[i][m];
+                    }
+                    m += 1;
+                }
+            }
+        }
+        break;
+    }
+    saveImage();
+}
 
 //void ShrinkImage(){
 //    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
@@ -346,6 +423,15 @@ void DetectImageEdges(){
 //    cin >> order[4];
 //}
 //
-//void BlurImage(){
-//
-//}
+void BlurImage(){
+for (int i = 0 ; i < SIZE ; i++){
+    for (int j =0 ; j< SIZE ; j++){
+        long sum ;
+       long double average ;
+        sum = image[i][j] + image[i-1][j-1] + image[i-1][j] + image [i-1][j+1] + image[i][j+1] + image [i][j-1]+ image[i][j+1] + image [i+1][j-1] + image[i+1][j]+ image[i+1][j+1];
+        average = sum / 9;
+        image [i][j] = average;
+    }
+}
+saveImage();
+}

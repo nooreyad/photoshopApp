@@ -15,12 +15,12 @@ void FlipImage();
 void DarkenAndLightenImage();
 void RotateImage();
 void DetectImageEdges();
-//void EnlargeImage();
-//void ShrinkImage();
-//void MirrorHalfImage();
-//void ShuffleImage();
-//void BlurImage();
-//void saveImage();
+void EnlargeImage();
+void ShrinkImage();
+void MirrorHalfImage();
+void ShuffleImage();
+void BlurImage();
+void saveImage();
 
 int main() {
     char choice;

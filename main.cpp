@@ -38,7 +38,7 @@ int main() {
     cout << "7. Detect Image Edges\n";
 //    cout << "8. Enlarge Image\n";
 //    cout << "9. Shrink Image\n";
-    cout << "a. Mirror 1/2 Image\n";
+    cout << "a. Mirror Half Image\n";
 //    cout << "b. Shuffle Image\n";
 //    cout << "c. Blur Image\n";
 //    cout << "s. Save the image to a file\n";

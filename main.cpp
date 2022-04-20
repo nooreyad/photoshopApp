@@ -424,11 +424,12 @@ switch (IntegerChoice)
 //}
 //
 void BlurImage(){
+    loadImage();
 for (int i = 0 ; i < SIZE ; i++){
     for (int j =0 ; j< SIZE ; j++){
         long sum ;
        long double average ;
-        sum = image[i][j] + image[i-1][j-1] + image[i-1][j] + image [i-1][j+1] + image[i][j+1] + image [i][j-1]+ image[i][j+1] + image [i+1][j-1] + image[i+1][j]+ image[i+1][j+1];
+        sum = image[i][j] + image[i-1][j-1] + image[i-1][j] + image [i-1][j+1] + image [i][j-1]+ image[i][j+1] + image [i+1][j-1] + image[i+1][j]+ image[i+1][j+1];
         average = sum / 9;
         image [i][j] = average;
     }

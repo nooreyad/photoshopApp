@@ -36,14 +36,14 @@ int main() {
     cout << "5. Darken and Lighten Image\n";
     cout << "6. Rotate Image\n";
     cout << "7. Detect Image Edges\n";
-//    cout << "8. Enlarge Image\n";
+    cout << "8. Enlarge Image\n";
 //    cout << "9. Shrink Image\n";
     cout << "a. Mirror Half Image\n";
 //    cout << "b. Shuffle Image\n";
     cout << "c. Blur Image\n";
-//    cout << "s. Save the image to a file\n";
-//    cout << "0. Exit\n";
-//    cout << "Your choice: ";
+    cout << "s. Save the image to a file\n";
+    cout << "0. Exit\n";
+    cout << "Your choice: ";
     cin >> choice;
     while (choice != 0) {
         while (choice == '1') {

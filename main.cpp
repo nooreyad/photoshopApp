@@ -5,7 +5,7 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
-int IntegerChoice;
+char IntegerChoice;
 
 void loadImage();
 void loadSecondImage();
@@ -409,12 +409,63 @@ void EnlargeImage(){
     saveImage();
 }
 
-void ShrinkImage(){
-   cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
-  cout << "Choice: ";
-  cin >> IntegerChoice;
-}
+void ShrinkImage() {
+    loadImage();
+    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
+    cout << "Choice: ";
+    cin >> IntegerChoice;
+    switch(IntegerChoice) {
+        case '1':
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    for (int k = 0; k < SIZE; k += 2) {
+                        for (int c = 0; c < SIZE; c += 2) {
+                            image[i][j] = image[c][k];
+                        }
+                    }
+                }
+            }
+            for(int i = 0; i<SIZE ;i++){
+                for(int j = 1; j<SIZE; j+=2){
+                    image[i][j] = 255;
+                }
+            }
+        case '2':
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    for (int k = 0; k < SIZE; k += 3) {
+                        for (int c = 0; c < SIZE; c += 3) {
+                            image[i][j] = image[c][k];
+                        }
+                    }
 
+                }
+            }
+            for(int i = 0; i<SIZE ;i++){
+                for(int j = 1; j<SIZE; j+=3){
+                    image[i][j] = 255;
+                }
+            }
+        case '3':
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    for (int k = 0; k < SIZE; k += 4) {
+                        for (int c = 0; c < SIZE; c += 4) {
+                            image[i][j] = image[c][k];
+                        }
+                    }
+
+                }
+            }
+            for(int i = 0; i<SIZE ;i++){
+                for(int j = 1; j<SIZE; j+=4){
+                    image[i][j] = 255;
+                }
+            }
+
+    }
+    saveImage();
+}
 void MirrorHalfImage(){
     loadImage();
     char choice;

@@ -5,7 +5,7 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
-
+int IntegerChoice;
 
 void loadImage();
 void loadSecondImage();
@@ -18,9 +18,9 @@ void DarkenAndLightenImage();
 void RotateImage();
 void DetectImageEdges();
 void EnlargeImage();
-//void ShrinkImage();
+void ShrinkImage();
 void MirrorHalfImage();
-//void ShuffleImage();
+void ShuffleImage();
 void BlurImage();
 void saveImage();
 
@@ -37,9 +37,8 @@ int main() {
     cout << "6. Rotate Image\n";
     cout << "7. Detect Image Edges\n";
     cout << "8. Enlarge Image\n";
-//    cout << "9. Shrink Image\n";
-    cout << "a. Mirror Half Image\n";
-//    cout << "b. Shuffle Image\n";
+    cout << "9. Shrink Image\n";
+    cout << "a. Mirror Half Image\n";cout << "b. Shuffle Image\n";
     cout << "c. Blur Image\n";
     cout << "s. Save the image to a file\n";
     cout << "0. Exit\n";
@@ -327,7 +326,6 @@ void DetectImageEdges(){
 
 void EnlargeImage(){
     int quarterImage[64][64];
-    int m =0;
     loadImage();
     cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
     cin>>IntegerChoice;
@@ -339,6 +337,7 @@ void EnlargeImage(){
                 }
             }
             for (int i = 0; i < SIZE; i++) {
+                int m =0;
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
@@ -358,6 +357,7 @@ void EnlargeImage(){
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
+                int m =0;
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
@@ -376,6 +376,7 @@ void EnlargeImage(){
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
+                int m =0;
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
@@ -393,6 +394,7 @@ void EnlargeImage(){
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
+                int m =0;
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
@@ -407,12 +409,12 @@ void EnlargeImage(){
     saveImage();
 }
 
-//void ShrinkImage(){
-//    cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
-//    cout << "Choice: ";
-//    // cin >> IntegerChoice;
-//}
-//
+void ShrinkImage(){
+   cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
+  cout << "Choice: ";
+  cin >> IntegerChoice;
+}
+
 void MirrorHalfImage(){
     loadImage();
     char choice;
@@ -458,12 +460,12 @@ void MirrorHalfImage(){
     saveImage();
 }
 
-//void ShuffleImage(){
-//    int order[4];
-//    cout << "Please enter new order of the 4 quarters: ";
-//    cin >> order[4];
-//}
-//
+void ShuffleImage(){
+    int order[4];
+    cout << "Please enter new order of the 4 quarters: ";
+    cin >> order[4];
+}
+
 void BlurImage(){
     loadImage();
     for (int i = 0 ; i < SIZE ; i++){

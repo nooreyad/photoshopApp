@@ -1,5 +1,6 @@
 #include <cstring>
 #include <iostream>
+#include <algorithm>
 #include "bmplib.h"
 #include "bmplib.cpp"
 
@@ -507,9 +508,18 @@ void MirrorHalfImage(){
 
 void ShuffleImage(){
     loadImage();
-    // int order[4];
-    // cout << "Please enter new order of the 4 quarters: ";
-    // cin >> order[4];
+    int order[4], checkOrder[4];
+    cout << "Please enter new order of the 4 quarters: ";
+    cin >> order[4];
+    order[4] = checkOrder[4];
+    int arraySize = sizeof(checkOrder) / sizeof(checkOrder[0]);
+    sort(checkOrder, checkOrder + arraySize);
+    while (checkOrder[4] != {0,1,2,3}){
+        cout << "The order must contain numbers from 0 to 3 only, Please re-enter the order: ";
+        cin >> checkOrder[4];
+        int arraySize = sizeof(checkOrder) / sizeof(checkOrder[0]);
+        sort(checkOrder, checkOrder + arraySize);
+    }
     unsigned char quarters[4][SIZE/2][SIZE/2];
     for (int i = 0; i <= 127; i++){
         for (int j = 0; j <= 127; j++){
@@ -531,24 +541,26 @@ void ShuffleImage(){
             quarters[3][c][k] = image[i][j];
         }
     }
-    for (int i = 0; i <= 127; i++){
-        for (int j = 0; j <= 127; j++){
-            image[i][j] = quarters[3][i][j];
+    for (int b = 0; b < 4; b++){
+        for (int i = 0; i <= 127; i++){
+            for (int j = 0; j <= 127; j++){
+                image[i][j] = quarters[b][i][j];
+            }
         }
-    }
-    for (int i = 0; i <= 127; i++){
-        for (int j = 128, k = 0; j <= 255; j++, k++){
-            image[i][j] = quarters[2][i][k];
+        for (int i = 0; i <= 127; i++){
+            for (int j = 128, k = 0; j <= 255; j++, k++){
+                image[i][j] = quarters[b][i][k];
+            }
         }
-    }
-    for (int i = 128, k = 0; i <= 255; i++, k++){
-        for (int j = 0; j <= 127; j++){
-            image[i][j] = quarters[1][k][j];
+        for (int i = 128, k = 0; i <= 255; i++, k++){
+            for (int j = 0; j <= 127; j++){
+                image[i][j] = quarters[b][k][j];
+            }
         }
-    }
-    for (int i = 128, c = 0; i <= 255; i++, c++){
-        for (int j = 128, k = 0; j <= 255; j++, k++){
-            image[i][j] = quarters[0][c][k];
+        for (int i = 128, c = 0; i <= 255; i++, c++){
+            for (int j = 128, k = 0; j <= 255; j++, k++){
+                image[i][j] = quarters[b][c][k];
+            }
         }
     }
     saveImage();
@@ -559,7 +571,8 @@ void BlurImage(){
     for (int i = 0 ; i < SIZE ; i++){
         for (int j =0 ; j< SIZE ; j++){
             long double average ;
-            average = (image[i][j] + image[i-1][j-1] + image[i-1][j] + image [i-1][j+1] + image [i][j-1]+ image[i][j+1] + image [i+1][j-1] + image[i+1][j]+ image[i+1][j+1])/9;
+            average = (image[i][j] + image[i-1][j-1] + image[i-1][j] + image [i-1][j+1] + image [i][j-1]+
+                    image[i][j+1]+ image [i+1][j-1] + image[i+1][j]+ image[i+1][j+1])/9;
             image [i][j] = average;
         }
     }

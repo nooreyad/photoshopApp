@@ -25,26 +25,26 @@ void BlurImage();
 void saveImage();
 
 int main() {
-    char choice;
-
+    char choice = ' ';
     cout << "Hello and welcome to our photoshop program\n";
-    cout << "Please choose one of the options below\n";
-    cout << "1. Black & White Filter\n";
-    cout << "2. Invert Filter\n";
-    cout << "3. Merge Filter\n";
-    cout << "4. Flip Image\n";
-    cout << "5. Darken and Lighten Image\n";
-    cout << "6. Rotate Image\n";
-    cout << "7. Detect Image Edges\n";
-    cout << "8. Enlarge Image\n";
-    cout << "9. Shrink Image\n";
-    cout << "a. Mirror Half Image\n";cout << "b. Shuffle Image\n";
-    cout << "c. Blur Image\n";
-    cout << "s. Save the image to a file\n";
-    cout << "0. Exit\n";
-    cout << "Your choice: ";
-    cin >> choice;
-    while (choice != 0) {
+    
+    while (choice != '0') {
+        cout << "Please choose one of the options below\n";
+        cout << "1. Black & White Filter\n";
+        cout << "2. Invert Filter\n";
+        cout << "3. Merge Filter\n";
+        cout << "4. Flip Image\n";
+        cout << "5. Darken and Lighten Image\n";
+        cout << "6. Rotate Image\n";
+        cout << "7. Detect Image Edges\n";
+        cout << "8. Enlarge Image\n";
+        cout << "9. Shrink Image\n";
+        cout << "a. Mirror Half Image\n";cout << "b. Shuffle Image\n";
+        cout << "c. Blur Image\n";
+        cout << "s. Save the image to a file\n";
+        cout << "0. Exit\n";
+        cout << "Your choice: ";
+        cin >> choice;
         while (choice == '1') {
             BlackAndWhiteFilter();
             break;
@@ -98,11 +98,11 @@ int main() {
             break;
         }
     }
-    if (choice == 0){
+    if (choice == '0'){
         cout << "Thank you for using our program\nGoodbye!";
     }
     else{
-        while (choice != 0){
+        while (choice != '0'){
             cout << "Invalid input, Please re-enter the chosen filter: ";
             cin >> choice;
             break;
@@ -115,7 +115,9 @@ void loadImage () {
     cout << "Enter the source image file name: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
-    readGSBMP(imageFileName, image);
+    if(readGSBMP(imageFileName, image) == 1){
+        loadImage();
+    }
 }
 
 void loadSecondImage () {
@@ -123,7 +125,9 @@ void loadSecondImage () {
     cout << "Enter the source of the second image file name: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
-    readGSBMP(imageFileName, SecondImage);
+    if(readGSBMP(imageFileName, image) == 1){
+        loadImage();
+    }
 }
 
 void saveImage() {
@@ -308,14 +312,19 @@ void DetectImageEdges(){
                 image[i][j] = 0;
         }
     }
+    for(int i = 0; i < SIZE; i++){
+        for(int j = 0; j < SIZE; j++){
+            SecondImage[i][j] = image[i][j];
+        }
+    }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if (image[i][j+1] == 255 || image[i+1][j] == 255 || image[i+1][j+1] == 0 || image[i-1][j-1] == 255
-            || image[i-1][j] == 255 || image[i][j-1] == 255 || image[i+1][j - 1] == 255 || image[i-1][j+1] == 255) {
-                image[i][j] = 0;
-            } else {
-                if (image[i][j + 1] == 0 || image[i + 1][j] == 0 || image[i + 1][j + 1] == 0|| image[i - 1][j - 1] == 0
-                || image[i - 1][j] == 0 || image[i][j-1] == 0 || image[i+1][j-1] == 0 || image[i-1][j+1] == 0) {
+            if(SecondImage[i][j] == 0){
+                if (SecondImage[i][j+1] == 255 || SecondImage[i+1][j] == 255 || SecondImage[i+1][j+1] == 255 || SecondImage[i-1][j-1] == 255
+                || SecondImage[i-1][j] == 255 || SecondImage[i][j-1] == 255 || SecondImage[i+1][j - 1] == 255 || SecondImage[i-1][j+1] == 255) {
+                    image[i][j] = 0;
+                }
+                else{
                     image[i][j] = 255;
                 }
             }
@@ -325,10 +334,10 @@ void DetectImageEdges(){
 }
 
 void EnlargeImage(){
-    int quarterImage[64][64];
+    int quarterImage[SIZE/2][SIZE/2];
     loadImage();
     cout << "Which quarter to enlarge? 1, 2, 3 or 4: ";
-    cin>>IntegerChoice;
+    cin >> IntegerChoice;
     switch (IntegerChoice)
         case '1': {
             for (int i = 0; i < SIZE / 2; i++) {
@@ -339,9 +348,10 @@ void EnlargeImage(){
             for (int i = 0; i < SIZE; i++) {
                 int m =0;
                 for (int j = 0; j < SIZE; j++) {
-                    if ((j + 1) % 4 == 0) {
-                        for (int k = (j - 3); k <= j; k++) {
-                            image[i][k] = quarterImage[i][m];
+                    if ((j + 1) % 2 == 0) {
+                        for (int k = (j - 1); k <= j; k++) {
+                            image[i][k] = quarterImage[i/2][m];
+                            image[i+1][k] = quarterImage[i/2][m];
                         }
                         m+=1;
                     }
@@ -352,8 +362,8 @@ void EnlargeImage(){
             break;
             case '2':
                 for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = SIZE / 2; j < SIZE; j++) {
-                        quarterImage[i][j] = image[i][j];
+                    for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                        quarterImage[i][k] = image[i][j];
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
@@ -361,7 +371,8 @@ void EnlargeImage(){
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
-                            image[i][k] = quarterImage[i][m];
+                            image[i][k] = quarterImage[i/2][m];
+                            image[i+1][k] = quarterImage[i/2][m];
                         }
                         m += 1;
                     }
@@ -370,9 +381,9 @@ void EnlargeImage(){
             }
             break;
             case '3':
-                for (int i = SIZE / 2; i < SIZE; i++) {
+                for (int i = SIZE / 2, k = 0; i < SIZE; i++, k++) {
                     for (int j = 0; j < SIZE / 2; j++) {
-                        quarterImage[i][j] = image[i][j];
+                        quarterImage[k][j] = image[i][j];
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
@@ -380,7 +391,8 @@ void EnlargeImage(){
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
-                            image[i][k] = quarterImage[i][m];
+                            image[i][k] = quarterImage[i/2][m];
+                            image[i+1][k] = quarterImage[i/2][m];
                         }
                         m += 1;
                     }
@@ -388,9 +400,9 @@ void EnlargeImage(){
             }
             break;
             case '4':
-                for (int i = SIZE / 2; i < SIZE; i++) {
-                    for (int j = SIZE / 2; j < SIZE; j++) {
-                        quarterImage[i][j] = image[i][j];
+                for (int i = SIZE / 2, c = 0; i < SIZE; i++, c++) {
+                    for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                        quarterImage[c][k] = image[i][j];
                     }
                 }
             for (int i = 0; i < SIZE; i++) {
@@ -398,7 +410,8 @@ void EnlargeImage(){
                 for (int j = 0; j < SIZE; j++) {
                     if ((j + 1) % 4 == 0) {
                         for (int k = (j - 3); k <= j; k++) {
-                            image[i][k] = quarterImage[i][m];
+                            image[i][k] = quarterImage[i/2][m];
+                            image[i+1][k] = quarterImage[i/2][m];
                         }
                         m += 1;
                     }
@@ -414,28 +427,36 @@ void ShrinkImage() {
     cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
     cout << "Choice: ";
     cin >> IntegerChoice;
+    for(int i = 0; i < SIZE; i++){
+        for(int j = 0; j < SIZE; j++){
+            SecondImage[i][j] = image[i][j];
+        }
+    }
     switch(IntegerChoice) {
         case '1':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    SecondImage[i][j]= 255;
-                    SecondImage[i/2][j/2] = image[i][j];
+                    image[i][j]= 255;
+                    image[i/2][j/2] = SecondImage[i][j];
                         }
                     }
+            break;
         case '2':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    SecondImage[i][j]= 255;
-                    SecondImage[i/3][j/3] = image[i][j];
+                    image[i][j]= 255;
+                    image[i/3][j/3] = SecondImage[i][j];
                         }
                     }
+            break;
         case '3':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    SecondImage[i][j]= 255;
-                    SecondImage[i/4][j/4] = image[i][j];
+                    image[i][j]= 255;
+                    image[i/4][j/4] = SecondImage[i][j];
                         }
                     }
+            break;
     }
     saveImage();
 }
@@ -485,9 +506,52 @@ void MirrorHalfImage(){
 }
 
 void ShuffleImage(){
-    int order[4];
-    cout << "Please enter new order of the 4 quarters: ";
-    cin >> order[4];
+    loadImage();
+    // int order[4];
+    // cout << "Please enter new order of the 4 quarters: ";
+    // cin >> order[4];
+    unsigned char quarters[4][SIZE/2][SIZE/2];
+    for (int i = 0; i <= 127; i++){
+        for (int j = 0; j <= 127; j++){
+            quarters[0][i][j] = image[i][j];
+        }
+    }
+    for (int i = 0; i <= 127; i++){
+        for (int j = 128, k = 0; j <= 255; j++, k++){
+            quarters[1][i][k] = image[i][j];
+        }
+    }
+    for (int i = 128, k = 0; i <= 255; i++, k++){
+        for (int j = 0; j <= 127; j++){
+            quarters[2][k][j] = image[i][j];
+        }
+    }
+    for (int i = SIZE/2, c = 0; i < SIZE; i++, c++){
+        for (int j = SIZE/2, k = 0; j < SIZE; j++, k++){
+            quarters[3][c][k] = image[i][j];
+        }
+    }
+    for (int i = 0; i <= 127; i++){
+        for (int j = 0; j <= 127; j++){
+            image[i][j] = quarters[3][i][j];
+        }
+    }
+    for (int i = 0; i <= 127; i++){
+        for (int j = 128, k = 0; j <= 255; j++, k++){
+            image[i][j] = quarters[2][i][k];
+        }
+    }
+    for (int i = 128, k = 0; i <= 255; i++, k++){
+        for (int j = 0; j <= 127; j++){
+            image[i][j] = quarters[1][k][j];
+        }
+    }
+    for (int i = 128, c = 0; i <= 255; i++, c++){
+        for (int j = 128, k = 0; j <= 255; j++, k++){
+            image[i][j] = quarters[0][c][k];
+        }
+    }
+    saveImage();
 }
 
 void BlurImage(){

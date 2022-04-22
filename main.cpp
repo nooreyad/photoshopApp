@@ -418,51 +418,24 @@ void ShrinkImage() {
         case '1':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    for (int k = 0; k < SIZE; k += 2) {
-                        for (int c = 0; c < SIZE; c += 2) {
-                            image[i][j] = image[c][k];
+                    SecondImage[i][j]= 255;
+                    SecondImage[i/2][j/2] = image[i][j];
                         }
                     }
-                }
-            }
-            for(int i = 0; i<SIZE ;i++){
-                for(int j = 1; j<SIZE; j+=2){
-                    image[i][j] = 255;
-                }
-            }
         case '2':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    for (int k = 0; k < SIZE; k += 3) {
-                        for (int c = 0; c < SIZE; c += 3) {
-                            image[i][j] = image[c][k];
+                    SecondImage[i][j]= 255;
+                    SecondImage[i/3][j/3] = image[i][j];
                         }
                     }
-
-                }
-            }
-            for(int i = 0; i<SIZE ;i++){
-                for(int j = 1; j<SIZE; j+=3){
-                    image[i][j] = 255;
-                }
-            }
         case '3':
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    for (int k = 0; k < SIZE; k += 4) {
-                        for (int c = 0; c < SIZE; c += 4) {
-                            image[i][j] = image[c][k];
+                    SecondImage[i][j]= 255;
+                    SecondImage[i/4][j/4] = image[i][j];
                         }
                     }
-
-                }
-            }
-            for(int i = 0; i<SIZE ;i++){
-                for(int j = 1; j<SIZE; j+=4){
-                    image[i][j] = 255;
-                }
-            }
-
     }
     saveImage();
 }

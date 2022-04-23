@@ -1,3 +1,4 @@
+//Include libraries
 #include <cstring>
 #include <iostream>
 #include <algorithm>
@@ -5,9 +6,12 @@
 #include "bmplib.cpp"
 
 using namespace std;
+
+// Declare images and variables
 unsigned char image[SIZE][SIZE], SecondImage[SIZE][SIZE];
 char IntegerChoice;
 
+//Declare filters' functions
 void loadImage();
 void loadSecondImage();
 void saveImage();
@@ -25,11 +29,13 @@ void ShuffleImage();
 void BlurImage();
 void saveImage();
 
+//Main function
 int main() {
     char choice = ' ';
     cout << "Hello and welcome to our photoshop program\n";
     
     while (choice != '0') {
+        //Menu of filters
         cout << "Please choose one of the options below\n";
         cout << "1. Black & White Filter\n";
         cout << "2. Invert Filter\n";
@@ -111,6 +117,7 @@ int main() {
     }
 }
 
+// Function to load image
 void loadImage () {
     char imageFileName[100];
     cout << "Enter the source image file name: ";
@@ -121,6 +128,7 @@ void loadImage () {
     }
 }
 
+// Function to load second image
 void loadSecondImage () {
     char imageFileName[100];
     cout << "Enter the source of the second image file name: ";
@@ -131,6 +139,7 @@ void loadSecondImage () {
     }
 }
 
+// Function to save image
 void saveImage() {
     char imageFileName[100];
     cout << "Enter the target image file name: ";
@@ -139,6 +148,7 @@ void saveImage() {
     writeGSBMP(imageFileName, image);
 }
 
+// Function of black and white filter
 void BlackAndWhiteFilter(){
     loadImage();
     long avg = 0;
@@ -159,6 +169,7 @@ void BlackAndWhiteFilter(){
     saveImage();
 }
 
+// Function of invert filter
 void InvertFilter(){
     loadImage();
     for (int i = 0; i < SIZE; i++){
@@ -170,6 +181,7 @@ void InvertFilter(){
 
 }
 
+// Function of merge filter
 void MergeFilter(){
     loadImage();
     loadSecondImage();
@@ -181,6 +193,7 @@ void MergeFilter(){
     saveImage();
 }
 
+// Function to flip image horizontally or vertically
 void FlipImage(){
     loadImage();
     char choice;
@@ -219,6 +232,7 @@ void FlipImage(){
     saveImage();
 }
 
+//Function to darken or lighten an image
 void DarkenAndLightenImage(){
     loadImage();
     char choice;
@@ -256,6 +270,7 @@ void DarkenAndLightenImage(){
     saveImage();
 }
 
+// Function to rotate an image
 void RotateImage(){
     loadImage();
     char choice;
@@ -296,6 +311,7 @@ void RotateImage(){
     saveImage();
 }
 
+//Function to detect the edges of an image
 void DetectImageEdges(){
     loadImage();
     long avg = 0;
@@ -334,6 +350,7 @@ void DetectImageEdges(){
     saveImage();
 }
 
+//Function to enlarge a quarter of an image
 void EnlargeImage(){
     int quarterImage[SIZE/2][SIZE/2];
     loadImage();
@@ -423,6 +440,7 @@ void EnlargeImage(){
     saveImage();
 }
 
+//Function to shrink an image to half or third or quarter of it
 void ShrinkImage() {
     loadImage();
     cout << "Shrink to\n1. (1/2)\n2. (1/3)\n3. (1/4)\n";
@@ -461,6 +479,8 @@ void ShrinkImage() {
     }
     saveImage();
 }
+
+// Function to mirror half an image
 void MirrorHalfImage(){
     loadImage();
     char choice;
@@ -506,6 +526,7 @@ void MirrorHalfImage(){
     saveImage();
 }
 
+// Function to shuffle an image to a new order
 void ShuffleImage(){
     loadImage();
     int order[4], checkOrder[4];
@@ -566,6 +587,7 @@ void ShuffleImage(){
     saveImage();
 }
 
+//Function to blur an image
 void BlurImage(){
     loadImage();
     for (int i = 0 ; i < SIZE ; i++){

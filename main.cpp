@@ -125,6 +125,7 @@ void loadImage () {
     cout << "Enter the source image file name: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
+    readGSBMP(imageFileName, SecondImage);
     if(readGSBMP(imageFileName, image) == 1){
         loadImage();
     }
@@ -136,8 +137,9 @@ void loadSecondImage () {
     cout << "Enter the source of the second image file name: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
-    if(readGSBMP(imageFileName, image) == 1){
-        loadImage();
+    readGSBMP(imageFileName, SecondImage);
+    if(readGSBMP(imageFileName, SecondImage) == 1){
+        loadSecondImage();
     }
 }
 
@@ -188,8 +190,8 @@ void MergeFilter(){
     loadImage();
     loadSecondImage();
     for (int i = 0; i < SIZE; i++){
-        for (int j = i % 2; j < SIZE; j+=2){
-            image[i][j] = SecondImage[i][j];
+        for (int j = 0; j < SIZE; j++){
+            image[i][j] = (SecondImage[i][j] + image[i][j])/2;
         }
     }
     saveImage();

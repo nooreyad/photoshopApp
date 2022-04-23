@@ -8,8 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "D:/Photoshop(filters)/photoshop-CS112-Assignment3/Bonus.cpp" "CMakeFiles/untitled1.dir/Bonus.cpp.obj" "gcc" "CMakeFiles/untitled1.dir/Bonus.cpp.obj.d"
-  "D:/Photoshop(filters)/photoshop-CS112-Assignment3/main.cpp" "CMakeFiles/untitled1.dir/main.cpp.obj" "gcc" "CMakeFiles/untitled1.dir/main.cpp.obj.d"
+  "D:/Photoshop(filters)/photoshop-CS112-Assignment3/FiltersBONUS.cpp" "CMakeFiles/untiled1_0.dir/FiltersBONUS.cpp.obj" "gcc" "CMakeFiles/untiled1_0.dir/FiltersBONUS.cpp.obj.d"
   )
 
 # Targets to which this target links.

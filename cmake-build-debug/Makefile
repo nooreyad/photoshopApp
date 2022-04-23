@@ -128,6 +128,67 @@ untitled1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/build
 .PHONY : untitled1/fast
 
+#=============================================================================
+# Target rules for targets named untiled1_0
+
+# Build rule for target.
+untiled1_0: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 untiled1_0
+.PHONY : untiled1_0
+
+# fast build rule for target.
+untiled1_0/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untiled1_0.dir\build.make CMakeFiles/untiled1_0.dir/build
+.PHONY : untiled1_0/fast
+
+Bonus.obj: Bonus.cpp.obj
+.PHONY : Bonus.obj
+
+# target to build an object file
+Bonus.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/Bonus.cpp.obj
+.PHONY : Bonus.cpp.obj
+
+Bonus.i: Bonus.cpp.i
+.PHONY : Bonus.i
+
+# target to preprocess a source file
+Bonus.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/Bonus.cpp.i
+.PHONY : Bonus.cpp.i
+
+Bonus.s: Bonus.cpp.s
+.PHONY : Bonus.s
+
+# target to generate assembly for a file
+Bonus.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/Bonus.cpp.s
+.PHONY : Bonus.cpp.s
+
+FiltersBONUS.obj: FiltersBONUS.cpp.obj
+.PHONY : FiltersBONUS.obj
+
+# target to build an object file
+FiltersBONUS.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untiled1_0.dir\build.make CMakeFiles/untiled1_0.dir/FiltersBONUS.cpp.obj
+.PHONY : FiltersBONUS.cpp.obj
+
+FiltersBONUS.i: FiltersBONUS.cpp.i
+.PHONY : FiltersBONUS.i
+
+# target to preprocess a source file
+FiltersBONUS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untiled1_0.dir\build.make CMakeFiles/untiled1_0.dir/FiltersBONUS.cpp.i
+.PHONY : FiltersBONUS.cpp.i
+
+FiltersBONUS.s: FiltersBONUS.cpp.s
+.PHONY : FiltersBONUS.s
+
+# target to generate assembly for a file
+FiltersBONUS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untiled1_0.dir\build.make CMakeFiles/untiled1_0.dir/FiltersBONUS.cpp.s
+.PHONY : FiltersBONUS.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -160,7 +221,14 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... untiled1_0
 	@echo ... untitled1
+	@echo ... Bonus.obj
+	@echo ... Bonus.i
+	@echo ... Bonus.s
+	@echo ... FiltersBONUS.obj
+	@echo ... FiltersBONUS.i
+	@echo ... FiltersBONUS.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

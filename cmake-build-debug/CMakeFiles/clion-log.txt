@@ -1,1 +1,4 @@
-CMakeLists.txt not found in C:\Users\Admin\Documents\GitHub\photoshop-CS112-Assignment3 Select CMakeLists.txt
+"C:\Program Files\JetBrains\CLion 2021.3.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\Photoshop(filters)\photoshop-CS112-Assignment3
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Photoshop(filters)/photoshop-CS112-Assignment3/cmake-build-debug

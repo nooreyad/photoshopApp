@@ -92,10 +92,12 @@ int main() {
             MirrorHalfImage();
             break;
         }
+
         while (choice == 'b') {
             ShuffleImage();
             break;
         }
+
         while (choice == 'c') {
             BlurImage();
             break;
@@ -527,62 +529,77 @@ void MirrorHalfImage(){
 }
 
 // Function to shuffle an image to a new order
+
 void ShuffleImage(){
     loadImage();
-    int order[4], checkOrder[4];
-    cout << "Please enter new order of the 4 quarters: ";
-    cin >> order[4];
-    order[4] = checkOrder[4];
-    int arraySize = sizeof(checkOrder) / sizeof(checkOrder[0]);
-    sort(checkOrder, checkOrder + arraySize);
-    while (checkOrder[4] != {0,1,2,3}){
-        cout << "The order must contain numbers from 0 to 3 only, Please re-enter the order: ";
-        cin >> checkOrder[4];
-        int arraySize = sizeof(checkOrder) / sizeof(checkOrder[0]);
-        sort(checkOrder, checkOrder + arraySize);
-    }
-    unsigned char quarters[4][SIZE/2][SIZE/2];
-    for (int i = 0; i <= 127; i++){
-        for (int j = 0; j <= 127; j++){
-            quarters[0][i][j] = image[i][j];
+    int quarterImage1[SIZE/2][SIZE/2],quarterImage2[SIZE/2][SIZE/2],quarterImage3[SIZE/2][SIZE/2],quarterImage4[SIZE/2][SIZE/2];
+    for (int i = 0; i < SIZE / 2; i++) {
+        for (int j = 0; j < SIZE / 2; j++) {
+            quarterImage1[i][j] = image[i][j];
         }
     }
-    for (int i = 0; i <= 127; i++){
-        for (int j = 128, k = 0; j <= 255; j++, k++){
-            quarters[1][i][k] = image[i][j];
+    for (int i = 0; i < SIZE / 2; i++) {
+        for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+            quarterImage2[i][k] = image[i][j];
         }
     }
-    for (int i = 128, k = 0; i <= 255; i++, k++){
-        for (int j = 0; j <= 127; j++){
-            quarters[2][k][j] = image[i][j];
+    for (int i = SIZE / 2, k = 0; i < SIZE; i++, k++) {
+        for (int j = 0; j < SIZE / 2; j++) {
+            quarterImage3[k][j] = image[i][j];
         }
     }
-    for (int i = SIZE/2, c = 0; i < SIZE; i++, c++){
-        for (int j = SIZE/2, k = 0; j < SIZE; j++, k++){
-            quarters[3][c][k] = image[i][j];
+    for (int i = SIZE / 2, c = 0; i < SIZE; i++, c++) {
+        for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+            quarterImage4[c][k] = image[i][j];
         }
     }
-    for (int b = 0; b < 4; b++){
-        for (int i = 0; i <= 127; i++){
-            for (int j = 0; j <= 127; j++){
-                image[i][j] = quarters[b][i][j];
+    cout<< "Please choose one of the following orders: " << endl << "1. (2431)      2. (4312)" << endl;
+    cin>> IntegerChoice;
+    switch(IntegerChoice) {
+        case '1':
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][j] = quarterImage2[i][j];
+                }
             }
-        }
-        for (int i = 0; i <= 127; i++){
-            for (int j = 128, k = 0; j <= 255; j++, k++){
-                image[i][j] = quarters[b][i][k];
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                    image[i][j] = quarterImage4[i][k];
+                }
             }
-        }
-        for (int i = 128, k = 0; i <= 255; i++, k++){
-            for (int j = 0; j <= 127; j++){
-                image[i][j] = quarters[b][k][j];
+            for (int i = SIZE / 2, k = 0; i < SIZE; i++, k++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][j] = quarterImage3[k][j];
+                }
             }
-        }
-        for (int i = 128, c = 0; i <= 255; i++, c++){
-            for (int j = 128, k = 0; j <= 255; j++, k++){
-                image[i][j] = quarters[b][c][k];
+            for (int i = SIZE / 2, c = 0; i < SIZE; i++, c++) {
+                for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                    image[i][j] =  quarterImage1[c][k];
+                }
             }
-        }
+            break;
+        case '2':
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][j] = quarterImage4[i][j];
+                }
+            }
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                    image[i][j] = quarterImage3[i][k];
+                }
+            }
+            for (int i = SIZE / 2, k = 0; i < SIZE; i++, k++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][j] = quarterImage1[k][j];
+                }
+            }
+            for (int i = SIZE / 2, c = 0; i < SIZE; i++, c++) {
+                for (int j = SIZE / 2, k = 0; j < SIZE; j++, k++) {
+                    image[i][j] =  quarterImage2[c][k];
+                }
+            }
+            break;
     }
     saveImage();
 }
